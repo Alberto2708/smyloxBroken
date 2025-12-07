@@ -1,0 +1,289 @@
+﻿<UserControl x:Class="SmyloxFirstUI.View.Auth.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmyloxFirstUI.View.Auth"
+             xmlns:vmAuth="clr-namespace:SmyloxFirstUI.ViewModel.Auth"
+             xmlns:helpers="clr-namespace:SmyloxFirstUI.Helpers"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!-- Colors -->
+        <SolidColorBrush x:Key="PrimaryColor" Color="#3B82F6"/>
+        <SolidColorBrush x:Key="PrimaryHover" Color="#2563EB"/>
+        <SolidColorBrush x:Key="PrimaryPressed" Color="#1D4ED8"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#1F2937"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#6B7280"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#E5E7EB"/>
+        <SolidColorBrush x:Key="InputBackground" Color="#F9FAFB"/>
+
+        <!-- Input TextBox Style -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Padding" Value="44,0,12,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="{StaticResource InputBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Input PasswordBox Style -->
+        <Style x:Key="ModernPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Padding" Value="44,0,12,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="{StaticResource InputBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderColor}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                                <Setter Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Primary Button Style -->
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryHover}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryPressed}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.6"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Link Button Style -->
+        <Style x:Key="LinkButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="TextBlock.TextDecorations" Value="Underline"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Side - Branding -->
+        <Border Grid.Column="0" Background="{StaticResource PrimaryColor}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="1" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                    <!-- Logo Circle -->
+                    <Border Width="80"
+                           Height="80"
+                           Background="White"
+                           CornerRadius="40"
+                           Margin="0,0,0,24">
+                        <TextBlock Text="S"
+                                 FontSize="48"
+                                 FontWeight="Bold"
+                                 Foreground="{StaticResource PrimaryColor}"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+                    </Border>
+
+                    <!-- App Name -->
+                    <TextBlock Text="Smylox"
+                             FontSize="42"
+                             FontWeight="Bold"
+                             Foreground="White"
+                             HorizontalAlignment="Center"
+                             Margin="0,0,0,12"/>
+
+                    <TextBlock Text="Bienvenido de nuevo"
+                             FontSize="16"
+                             Foreground="White"
+                             Opacity="0.9"
+                             HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Right Side - Login Form -->
+        <Grid Grid.Column="1">
+            <StackPanel MaxWidth="380"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="48">
+
+                <!-- Header -->
+                <TextBlock Text="Iniciar Sesión"
+                         FontSize="28"
+                         FontWeight="Bold"
+                         Foreground="{StaticResource TextPrimary}"
+                         Margin="0,0,0,8"/>
+
+                <TextBlock Text="Ingresa tus credenciales para continuar"
+                         FontSize="14"
+                         Foreground="{StaticResource TextSecondary}"
+                         Margin="0,0,0,32"/>
+
+                <!-- Username Field -->
+                <TextBlock Text="Usuario"
+                         FontSize="13"
+                         FontWeight="Medium"
+                         Foreground="{StaticResource TextPrimary}"
+                         Margin="0,0,0,8"/>
+
+                <Grid Margin="0,0,0,20">
+                    <TextBox Style="{StaticResource ModernTextBox}"
+                            Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <!-- User Icon -->
+                    <TextBlock Text="&#xE77B;"
+                             FontFamily="Segoe MDL2 Assets"
+                             FontSize="16"
+                             Foreground="{StaticResource TextSecondary}"
+                             VerticalAlignment="Center"
+                             Margin="16,0,0,0"
+                             IsHitTestVisible="False"/>
+                </Grid>
+
+                <!-- Password Field -->
+                <TextBlock Text="Contraseña"
+                         FontSize="13"
+                         FontWeight="Medium"
+                         Foreground="{StaticResource TextPrimary}"
+                         Margin="0,0,0,8"/>
+
+                <Grid Margin="0,0,0,8">
+                    <PasswordBox x:Name="PasswordBox"
+                               Style="{StaticResource ModernPasswordBox}"
+                               helpers:PasswordHelper.BindPassword="True"
+                               helpers:PasswordHelper.Password="{Binding Password, Mode=TwoWay}"/>
+
+                    <!-- Lock Icon -->
+                    <TextBlock Text="&#xE72E;"
+                             FontFamily="Segoe MDL2 Assets"
+                             FontSize="16"
+                             Foreground="{StaticResource TextSecondary}"
+                             VerticalAlignment="Center"
+                             Margin="16,0,0,0"
+                             IsHitTestVisible="False"/>
+                </Grid>
+
+                <!-- Forgot Password Link -->
+                <Button Style="{StaticResource LinkButton}"
+                       Content="¿Olvidaste la contraseña?"
+                       HorizontalAlignment="Right"
+                       Command="{Binding ForgotPasswordCommand}"
+                       Margin="0,0,0,24"/>
+
+                <!-- Login Button -->
+                <Button Style="{StaticResource PrimaryButton}"
+                       Content="Iniciar Sesión"
+                       Command="{Binding LoginCommand}"
+                       Margin="0,0,0,24"/>
+
+                <!-- Sign Up Link -->
+                <StackPanel Orientation="Horizontal"
+                           HorizontalAlignment="Center">
+                    <TextBlock Text="¿No tienes una cuenta?"
+                             FontSize="13"
+                             Foreground="{StaticResource TextSecondary}"
+                             Margin="0,0,6,0"
+                             VerticalAlignment="Center"/>
+                    <Button Style="{StaticResource LinkButton}"
+                           Content="Crear una cuenta"
+                           FontWeight="SemiBold"
+                            Command="{Binding CreateAccountCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

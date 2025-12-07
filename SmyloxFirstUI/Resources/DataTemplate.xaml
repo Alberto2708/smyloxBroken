@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vmAssistant="clr-namespace:SmyloxFirstUI.ViewModel.Assistant"
+                    xmlns:vmAuth="clr-namespace:SmyloxFirstUI.ViewModel.Auth"
+                    xmlns:vmDoctor="clr-namespace:SmyloxFirstUI.ViewModel.Doctor"
+                    xmlns:vmBase="clr-namespace:SmyloxFirstUI.ViewModel"
+                    xmlns:vmModal="clr-namespace:SmyloxFirstUI.ViewModel.Modal"
+                    xmlns:vmPatient="clr-namespace:SmyloxFirstUI.ViewModel.Patient"
+                    xmlns:viewAssistant="clr-namespace:SmyloxFirstUI.View.Assistant"
+                    xmlns:viewAuth="clr-namespace:SmyloxFirstUI.View.Auth"
+                    xmlns:viewDoctor="clr-namespace:SmyloxFirstUI.View.Doctor"
+                    xmlns:viewModal="clr-namespace:SmyloxFirstUI.View.Modal"
+                    xmlns:viewPatient="clr-namespace:SmyloxFirstUI.View.Patient">
+
+    <DataTemplate DataType="{x:Type vmAuth:LoginViewModel}">
+        <viewAuth:LoginView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmAssistant:AssistantDashboardViewModel}">
+        <viewAssistant:AssistantDashboardView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmDoctor:DoctorDashboardViewModel}">
+        <viewDoctor:DoctorDashboardView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmModal:CreatePatientViewModel}">
+        <viewModal:CreatePatientView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmPatient:PatientInfoViewModel}">
+        <viewPatient:PatientInfoView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmModal:CreateMedicalCaseViewModel}">
+        <viewModal:CreateMedicalCaseView/>
+    </DataTemplate>
+
+</ResourceDictionary>
