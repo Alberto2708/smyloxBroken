@@ -6,11 +6,13 @@
                     xmlns:vmBase="clr-namespace:SmyloxFirstUI.ViewModel"
                     xmlns:vmModal="clr-namespace:SmyloxFirstUI.ViewModel.Modal"
                     xmlns:vmPatient="clr-namespace:SmyloxFirstUI.ViewModel.Patient"
+                    xmlns:vmModelling="clr-namespace:SmyloxFirstUI.ViewModel.Modelling"
                     xmlns:viewAssistant="clr-namespace:SmyloxFirstUI.View.Assistant"
                     xmlns:viewAuth="clr-namespace:SmyloxFirstUI.View.Auth"
                     xmlns:viewDoctor="clr-namespace:SmyloxFirstUI.View.Doctor"
                     xmlns:viewModal="clr-namespace:SmyloxFirstUI.View.Modal"
-                    xmlns:viewPatient="clr-namespace:SmyloxFirstUI.View.Patient">
+                    xmlns:viewPatient="clr-namespace:SmyloxFirstUI.View.Patient"
+                    xmlns:viewModelling="clr-namespace:SmyloxFirstUI.View.Modelling">
 
     <DataTemplate DataType="{x:Type vmAuth:LoginViewModel}">
         <viewAuth:LoginView />
@@ -34,6 +36,10 @@
 
     <DataTemplate DataType="{x:Type vmModal:CreateMedicalCaseViewModel}">
         <viewModal:CreateMedicalCaseView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vmModelling:CloseBaseViewModel}">
+        <viewModelling:CloseBaseView/>
     </DataTemplate>
 
 </ResourceDictionary>

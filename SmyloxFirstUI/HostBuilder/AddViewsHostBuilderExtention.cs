@@ -15,6 +15,7 @@ using System.Net.Http;
 using SmyloxFirstUI.ViewModel.Modal;
 using SmyloxFirstUI.Stores;
 using SmyloxFirstUI.ViewModel.Patient;
+using SmyloxFirstUI.ViewModel.Modelling;
 namespace SmyloxFirstUI.HostBuilder
 {
     public static class AddViewsHostBuilderExtention
@@ -37,6 +38,7 @@ namespace SmyloxFirstUI.HostBuilder
                 services.AddTransient<DoctorDashboardViewModel>();
                 services.AddTransient<AssistantDashboardViewModel>();
                 services.AddTransient<PatientInfoViewModel>();
+                services.AddTransient<CloseBaseViewModel>();
 
                 services.AddTransient<CreatePatientViewModel>();
                 services.AddTransient<CreateMedicalCaseViewModel>();
@@ -81,6 +83,12 @@ namespace SmyloxFirstUI.HostBuilder
                         new ModalNavigationService<CreateMedicalCaseViewModel>(
                             s.GetRequiredService<ModalNavigationStore>(),
                             () => s.GetRequiredService<CreateMedicalCaseViewModel>())
+                    },
+                    {
+                        "CloseBaseView",
+                        new NavigationService<CloseBaseViewModel>(
+                            s.GetRequiredService<NavigationStore>(),
+                            () => s.GetRequiredService<CloseBaseViewModel>())
                     }
 
                 }));

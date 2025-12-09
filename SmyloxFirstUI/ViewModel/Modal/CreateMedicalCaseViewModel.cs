@@ -44,6 +44,13 @@ namespace SmyloxFirstUI.ViewModel.Modal
         [ObservableProperty]
         private string _mandibularFilePath;
 
+        // Add these properties for UI feedback
+        [ObservableProperty]
+        private bool _hasMaxilarFile;
+
+        [ObservableProperty]
+        private bool _hasMandibularFile;
+
         public CreateMedicalCaseViewModel(
             ModalNavigationStore modalNavigationStore,
             SessionService sessionService,
@@ -61,7 +68,7 @@ namespace SmyloxFirstUI.ViewModel.Modal
 
         void init()
         {
-            if(_doctorStore.Doctor != null)
+            if (_doctorStore.Doctor != null)
             {
                 DoctorInfo = _doctorStore.Doctor;
             }
@@ -69,7 +76,7 @@ namespace SmyloxFirstUI.ViewModel.Modal
 
         public async Task InitializeAsync()
         {
-            
+
             await LoadDoctorInfo();
         }
 
@@ -87,7 +94,7 @@ namespace SmyloxFirstUI.ViewModel.Modal
             }
         }
 
-        public void ParameterInitialization(object [] parameters)
+        public void ParameterInitialization(object[] parameters)
         {
 
             if (parameters != null && parameters.Length > 0)
@@ -106,6 +113,9 @@ namespace SmyloxFirstUI.ViewModel.Modal
             if (!string.IsNullOrEmpty(filepath))
             {
                 MaxilarFilePath = filepath;
+                HasMaxilarFile = true;
+                Debug.WriteLine($"Maxilar file selected: {filepath}");
+                Debug.WriteLine($"HasMaxilarFile: {HasMaxilarFile}");
             }
         }
 
@@ -116,6 +126,9 @@ namespace SmyloxFirstUI.ViewModel.Modal
             if (!string.IsNullOrEmpty(filepath))
             {
                 MandibularFilePath = filepath;
+                HasMandibularFile = true;
+                Debug.WriteLine($"Mandibular file selected: {filepath}");
+                Debug.WriteLine($"HasMandibularFile: {HasMandibularFile}");
             }
         }
 
@@ -125,7 +138,7 @@ namespace SmyloxFirstUI.ViewModel.Modal
             {
                 Filter = "STL Files (*.stl)|*.stl",
                 Title = "Select an STL File"
-            }; 
+            };
 
             if (openFileDialog.ShowDialog() == true)
             {
@@ -162,8 +175,9 @@ namespace SmyloxFirstUI.ViewModel.Modal
 
             try
             {
-                await OrganizeSTlFiles();
+                var (maxilarPath, mandibularPath) = await OrganizeSTlFiles();
                 Debug.WriteLine("STL files organized successfully.");
+                GoToCloseBase(maxilarPath, mandibularPath);
                 Close();
             }
 
@@ -176,7 +190,12 @@ namespace SmyloxFirstUI.ViewModel.Modal
 
         }
 
-        private async Task OrganizeSTlFiles()
+        void GoToCloseBase(string maxilarPath, string mandibularPath)
+        {
+            _viewModelRouter.NavigateTo("CloseBaseView", maxilarPath, mandibularPath);
+        }
+
+        private async Task<(string? MaxilarPath, string? MandibularPath)> OrganizeSTlFiles()
         {
             string baseDirectory = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "SmyloxFolders");
@@ -193,10 +212,15 @@ namespace SmyloxFirstUI.ViewModel.Modal
 
             Directory.CreateDirectory(targetDirectory);
 
+            string? maxilarPath = null;
+            string? mandibularPath = null;
+
+
             if (!string.IsNullOrEmpty(MaxilarFilePath) && File.Exists(MaxilarFilePath))
             {
                 string maxilarFileName = $"maxilar_initial_file.stl";
                 string maxilarTargetPath = Path.Combine(targetDirectory, maxilarFileName);
+                maxilarPath = maxilarTargetPath;
                 await Task.Run(() => File.Copy(MaxilarFilePath, maxilarTargetPath, overwrite: true));
             }
 
@@ -204,10 +228,13 @@ namespace SmyloxFirstUI.ViewModel.Modal
             {
                 string mandibularFileName = $"mandibular_initial_file.stl";
                 string mandibularTargetPath = Path.Combine(targetDirectory, mandibularFileName);
+                mandibularPath = mandibularTargetPath;
                 await Task.Run(() => File.Copy(MandibularFilePath, mandibularTargetPath, overwrite: true));
             }
 
             Debug.WriteLine($"STL files copied to: {targetDirectory}");
+
+            return (maxilarPath, mandibularPath);
         }
 
 

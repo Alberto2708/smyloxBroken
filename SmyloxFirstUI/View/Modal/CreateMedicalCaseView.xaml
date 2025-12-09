@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmyloxFirstUI.View.Modal"
+             xmlns:converters="clr-namespace:SmyloxFirstUI.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="500">
 
     <UserControl.Resources>
         <!-- Colors -->
         <SolidColorBrush x:Key="PrimaryColor" Color="#3B82F6"/>
+        <SolidColorBrush x:Key="SuccessColor" Color="#10B981"/>
         <SolidColorBrush x:Key="TextPrimary" Color="#1F2937"/>
         <SolidColorBrush x:Key="TextSecondary" Color="#6B7280"/>
         <SolidColorBrush x:Key="BorderColor" Color="#E5E7EB"/>
@@ -220,6 +222,9 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+
+        <!-- Converter for visibility -->
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </UserControl.Resources>
 
     <Border CornerRadius="16" 
@@ -289,33 +294,57 @@
                            Margin="0,0,0,8"/>
 
                 <!-- Maxilar File -->
-                <Button Style="{StaticResource SecondaryButton}"
-                       Command="{Binding SelectMaxilarFileCommand}"
-                       Margin="0,0,0,12">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE8E5;" 
-                                 FontFamily="Segoe MDL2 Assets"
-                                 FontSize="16"
-                                 Margin="0,0,12,0"
-                                 VerticalAlignment="Center"/>
-                        <TextBlock Text="Seleccionar Maxilar" 
-                                 VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
+                <Grid Margin="0,0,0,12">
+                    <Button Style="{StaticResource SecondaryButton}"
+                           Command="{Binding SelectMaxilarFileCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8E5;" 
+                                     FontFamily="Segoe MDL2 Assets"
+                                     FontSize="16"
+                                     Margin="0,0,12,0"
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Text="Seleccionar Maxilar" 
+                                     VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Green Check Icon -->
+                    <TextBlock Text="&#xE73E;" 
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="18"
+                               Foreground="{StaticResource SuccessColor}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Margin="0,0,12,0"
+                               Visibility="{Binding HasMaxilarFile, Converter={StaticResource BoolToVis}}"/>
+                </Grid>
 
                 <!-- Mandibular File -->
-                <Button Style="{StaticResource SecondaryButton}"
-                       Command="{Binding SelectMandibularFileCommand}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="&#xE8E5;" 
-                                 FontFamily="Segoe MDL2 Assets"
-                                 FontSize="16"
-                                 Margin="0,0,12,0"
-                                 VerticalAlignment="Center"/>
-                        <TextBlock Text="Seleccionar Mandibular" 
-                                 VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
+                <Grid>
+                    <Button Style="{StaticResource SecondaryButton}"
+                           Command="{Binding SelectMandibularFileCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8E5;" 
+                                     FontFamily="Segoe MDL2 Assets"
+                                     FontSize="16"
+                                     Margin="0,0,12,0"
+                                     VerticalAlignment="Center"/>
+                            <TextBlock Text="Seleccionar Mandibular" 
+                                     VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <!-- Green Check Icon -->
+                    <TextBlock Text="&#xE73E;" 
+                               FontFamily="Segoe MDL2 Assets"
+                               FontSize="18"
+                               Foreground="{StaticResource SuccessColor}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right"
+                               Margin="0,0,12,0"
+                               Visibility="{Binding HasMandibularFile, Converter={StaticResource BoolToVis}}"/>
+
+                </Grid>
             </StackPanel>
 
             <!-- Action Buttons -->
