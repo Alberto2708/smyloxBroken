@@ -1,0 +1,8 @@
+﻿<Project Sdk="WixToolset.Sdk/6.0.2">
+  <ItemGroup>
+    <ProjectReference Include="..\SmyloxFirstUI\SmyloxFirstUI.csproj" />
+  </ItemGroup>
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="dotnet publish &quot;$(SolutionDir)SmyloxFirstUI\SmyloxFirstUI.csproj&quot; -c Release -p:PublishSingleFile=true --self-contained -o &quot;$(SolutionDir)SmyloxFirstUI\publish&quot;" />
+  </Target>
+</Project>

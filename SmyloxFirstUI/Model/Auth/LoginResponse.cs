@@ -8,10 +8,20 @@ namespace SmyloxFirstUI.Model.Auth
 {
     public class LoginResponse
     {
-        public string token { get; set; }
+
+        public string accessToken { get; set; } = string.Empty;
+        public string refreshToken { get; set; } = string.Empty;
+
         public long expiresIn { get; set; }
         public Guid userId { get; set; }
-        public string role { get; set; }
+        public string role { get; set; } = string.Empty;
+        public string stripeCustomerId { get; set; } = string.Empty;
+
+        public bool emailVerified { get; set; }
+
+
+
+
 
     }
 }

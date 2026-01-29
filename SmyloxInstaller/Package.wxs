@@ -1,0 +1,17 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package 
+	  Name="SmyloxInstaller" 
+	  Manufacturer="Smylox" 
+	  Version="1.0.0.0"
+	  UpgradeCode="778F12C0-0613-4731-952C-16A06DDD6F22">
+	  
+	  
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+	  <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="MainFeature" Title="!(loc.FeatureTitle)" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Package>
+</Wix>

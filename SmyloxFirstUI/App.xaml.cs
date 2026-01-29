@@ -25,20 +25,21 @@ namespace SmyloxFirstUI
                 {
 
                     services.AddSingleton<SessionService>();
+                    services.AddSingleton<SecureTokenStorage>();
                     services.AddSingleton<PatientStore>();
                     services.AddSingleton<DoctorStore>();
                     services.AddSingleton<MedicalCaseStore>();
                     services.AddHttpClient<ApiClient>(client =>
-                {
-                    client.BaseAddress = new Uri("http://localhost:8081/");
-                    
-                });
-                services.AddSingleton<AuthService>();
+                    {
+                        client.BaseAddress = new Uri("http://localhost:8081/");
+
+                    });
+                    services.AddSingleton<AuthService>();
 
                     services.AddSingleton<MainViewModel>();
-                services.AddSingleton<MainWindow>((s) => new MainWindow()
+                    services.AddSingleton<MainWindow>((s) => new MainWindow()
                     {
-                    DataContext = s.GetRequiredService<MainViewModel>()
+                        DataContext = s.GetRequiredService<MainViewModel>()
                     });
 
                 }).Build();

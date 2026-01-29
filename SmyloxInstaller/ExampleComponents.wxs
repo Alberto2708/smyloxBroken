@@ -1,0 +1,49 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+	<Fragment>
+
+		<ComponentGroup Id="ProductComponents">
+
+			<Component Id="MainExecutable">
+				<File Id="MainExeFile"
+					  Source="$(var.SmyloxFirstUI.ProjectDir)publish\SmyloxFirstUI.exe"
+					  KeyPath="yes"/>
+			</Component>
+
+			<Component Id="DesktopShortcut" Directory="DesktopFolder">
+				<Shortcut
+				  Id="DesktopShortcut"
+				  Name="SmyloxApp"
+				  Description="Ejecutar aplicación"
+				  Target="[INSTALLFOLDER]SmyloxFirstUI.exe"
+				  WorkingDirectory="INSTALLFOLDER" />
+				<RegistryValue
+				  Root="HKCU"
+				  Key="Software\Smylox\SmyloxApp"
+				  Name="DesktopShortcut"
+				  Type="integer"
+				  Value="1"
+				  KeyPath="yes" />
+			</Component>
+
+			<Component Id="StartMenuShortcut" Directory="ProgramMenuFolder">
+				<Shortcut
+				  Id="StartMenuShortcut"
+				  Name="Smylox"
+				  Description="Ejecutar aplicación"
+				  Target="[INSTALLFOLDER]SmyloxFirstUI.exe"
+				  WorkingDirectory="INSTALLFOLDER" />
+				<RegistryValue
+				  Root="HKCU"
+				  Key="Software\Smylox\SmyloxApp"
+				  Name="StartMenuShortcut"
+				  Type="integer"
+				  Value="1"
+				  KeyPath="yes" />
+			</Component>
+
+		</ComponentGroup>
+
+	</Fragment>
+
+</Wix>

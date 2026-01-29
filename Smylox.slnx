@@ -1,3 +1,13 @@
 <Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
   <Project Path="SmyloxFirstUI/SmyloxFirstUI.csproj" />
+  <Project Path="SmyloxInstaller/SmyloxInstaller.wixproj" Type="b7dd6f7e-def8-4e67-b5b7-07ef123db6f0" Id="18186f9d-8ad3-4048-864b-c550c9e7bb84">
+    <Platform Solution="*|Any CPU" Project="x64" />
+    <Build Solution="Debug|Any CPU" Project="false" />
+  </Project>
 </Solution>
